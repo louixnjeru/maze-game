@@ -15,9 +15,9 @@ Room::Room(int x, int y, int width, int height) {
 }
 
 bool Room::checkCollision(Room *other) {
-    return  this->x < other->x + other->width &&
+    return  this->x > other->x + other->width &&
             this->x + this->width < other->x &&
-            this->y < other->y + other->height &&
+            this->y > other->y + other->height &&
             this->y + this->height < other->y;
 }
 
