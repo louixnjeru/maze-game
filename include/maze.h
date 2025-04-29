@@ -25,11 +25,13 @@ class Maze {
 
         int getRandInt(int end);
 
+        int getRandInt(int start, int end);
+
         void bfs(std::set<int> &visited, std::set<int> &maxComponent, int node);
 
     public:
         
-        Maze(int n, double p, std::string mode);
+        Maze(int n, double p, std::string mode, int map_size, int max_room_size);
 
         void addEdge(int i, int j);
 
