@@ -1,3 +1,4 @@
 #pragma once
 
-void say_hello();
+#include "room.h"
+#include "maze.h"
