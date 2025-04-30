@@ -1,0 +1,15 @@
+#pragma once
+
+#include <vector>
+#include <string>
+#include <set>
+#include <unordered_map>
+#include <queue>
+#include <iostream>
+
+#include "enemy.h"
+
+Enemy::Enemy(std::string name, double health) {
+    this->name = name;
+    this->health = health;
+}

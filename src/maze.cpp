@@ -12,7 +12,14 @@
 class Room;
 
 void Maze::generateErdosRenyi(int n, double p) {
-
+    for (int i { 1 }; i < n+1; ++i ) {
+        for (int j { i+1 }; j < n+1; ++j ) {
+            if (getProbability() < p) {
+                rooms.at(i)->addNeighbour(rooms.at(j));
+                rooms.at(j)->addNeighbour(rooms.at(i));
+            }
+        }
+    }
 }
 
 void Maze::generateVertexDuplication(int n, double p) {
@@ -24,7 +31,7 @@ void Maze::removeNode(int node) {
 }
 
 double Maze::getProbability() {
-    
+    return (double)(rand() % 1000) / 1000;
 }
 
 int Maze::getRandInt(int end) {
@@ -60,8 +67,8 @@ Maze::Maze(int n, double p, std::string mode, int map_size, int max_room_size) {
         }
     }
 
-
     generateErdosRenyi(n, p);
+
 }
 
 void Maze::addEdge(int i, int j) {

@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <queue>
 #include <iostream>
+#include <cmath>
 
 #include "room.h"
 
@@ -21,6 +22,21 @@ bool Room::checkCollision(Room *other) {
             this->y + this->height < other->y;
 }
 
-void Room::addEnemy() {
-    
+void Room::addEnemy(Enemy *new_enemy) {
+    this->enemies.push_back(new_enemy);
+}
+
+double Room::getDistanceToRoom(Room *other) {
+    double x_diff {std::pow(other->x - this->x, 2)};
+    double y_diff {std::pow(other->y - this->y, 2)};
+
+    return std::sqrt(x_diff + y_diff);
+}
+
+void Room::addNeighbour(Room* new_neighbour) {
+    this->neighbours.insert(new_neighbour);
+}
+
+void Room::removeNeighbour(Room* neighbour) {
+    this->neighbours.erase(neighbour);
 }
