@@ -7,11 +7,9 @@
 #include <queue>
 #include <iostream>
 
-class Enemy {
-    private:
-        std::string name;
-        double health;
+#include "entity.h"
 
+class Enemy : public Entity {
     public:
         Enemy(std::string name, double health);
 };

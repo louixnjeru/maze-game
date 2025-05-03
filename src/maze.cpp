@@ -12,9 +12,11 @@
 class Room;
 
 void Maze::generateErdosRenyi(int n, double p) {
-    for (int i { 1 }; i < n+1; ++i ) {
-        for (int j { i+1 }; j < n+1; ++j ) {
+    std::cout << this->rooms.size() << '\n';
+    for (int i { 0 }; i < n; ++i ) {
+        for (int j { i+1 }; j < n; ++j ) {
             if (getProbability() < p) {
+                std::cout << i << '\t' << j << '\n';
                 rooms.at(i)->addNeighbour(rooms.at(j));
                 rooms.at(j)->addNeighbour(rooms.at(i));
             }
@@ -38,7 +40,7 @@ int Maze::getRandInt(int end) {
     return (rand() % end) + 1;
 }
 
-int getRandInt(int start, int end) {
+int Maze::getRandInt(int start, int end) {
     return (rand() % (end - start)) - start + 1;
 }
 
@@ -68,7 +70,6 @@ Maze::Maze(int n, double p, std::string mode, int map_size, int max_room_size) {
     }
 
     generateErdosRenyi(n, p);
-
 }
 
 void Maze::addEdge(int i, int j) {
@@ -76,7 +77,9 @@ void Maze::addEdge(int i, int j) {
 }
 
 void Maze::printGraph() {
-    
+    for (auto r: this->rooms) {
+        std::cout << r << '\t' << r->getNeighbourNum() << '\n';
+    }
 }
 
 void Maze::getMaxConnectedComponent() {

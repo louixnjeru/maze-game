@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/Users/louixnjeru/Documents/maze_gen/build",
+  "command": "/usr/bin/clang++  -I/Users/louixnjeru/Documents/maze_gen/include -g -std=gnu++17 -o CMakeFiles/main.dir/src/enemy.cpp.o -c /Users/louixnjeru/Documents/maze_gen/src/enemy.cpp",
+  "file": "/Users/louixnjeru/Documents/maze_gen/src/enemy.cpp",
+  "output": "CMakeFiles/main.dir/src/enemy.cpp.o"
+},
+{
+  "directory": "/Users/louixnjeru/Documents/maze_gen/build",
+  "command": "/usr/bin/clang++  -I/Users/louixnjeru/Documents/maze_gen/include -g -std=gnu++17 -o CMakeFiles/main.dir/src/entity.cpp.o -c /Users/louixnjeru/Documents/maze_gen/src/entity.cpp",
+  "file": "/Users/louixnjeru/Documents/maze_gen/src/entity.cpp",
+  "output": "CMakeFiles/main.dir/src/entity.cpp.o"
+},
+{
+  "directory": "/Users/louixnjeru/Documents/maze_gen/build",
+  "command": "/usr/bin/clang++  -I/Users/louixnjeru/Documents/maze_gen/include -g -std=gnu++17 -o CMakeFiles/main.dir/src/main.cpp.o -c /Users/louixnjeru/Documents/maze_gen/src/main.cpp",
+  "file": "/Users/louixnjeru/Documents/maze_gen/src/main.cpp",
+  "output": "CMakeFiles/main.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/louixnjeru/Documents/maze_gen/build",
+  "command": "/usr/bin/clang++  -I/Users/louixnjeru/Documents/maze_gen/include -g -std=gnu++17 -o CMakeFiles/main.dir/src/maze.cpp.o -c /Users/louixnjeru/Documents/maze_gen/src/maze.cpp",
+  "file": "/Users/louixnjeru/Documents/maze_gen/src/maze.cpp",
+  "output": "CMakeFiles/main.dir/src/maze.cpp.o"
+},
+{
+  "directory": "/Users/louixnjeru/Documents/maze_gen/build",
+  "command": "/usr/bin/clang++  -I/Users/louixnjeru/Documents/maze_gen/include -g -std=gnu++17 -o CMakeFiles/main.dir/src/room.cpp.o -c /Users/louixnjeru/Documents/maze_gen/src/room.cpp",
+  "file": "/Users/louixnjeru/Documents/maze_gen/src/room.cpp",
+  "output": "CMakeFiles/main.dir/src/room.cpp.o"
+}
+]

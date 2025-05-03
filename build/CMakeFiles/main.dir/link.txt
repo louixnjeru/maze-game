@@ -1,0 +1,1 @@
+/usr/bin/clang++ -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/main.dir/src/enemy.cpp.o CMakeFiles/main.dir/src/entity.cpp.o CMakeFiles/main.dir/src/main.cpp.o CMakeFiles/main.dir/src/maze.cpp.o CMakeFiles/main.dir/src/room.cpp.o -o /Users/louixnjeru/Documents/maze_gen/bin/main

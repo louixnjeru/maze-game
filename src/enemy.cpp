@@ -9,7 +9,5 @@
 
 #include "enemy.h"
 
-Enemy::Enemy(std::string name, double health) {
-    this->name = name;
-    this->health = health;
+Enemy::Enemy(std::string name, double health) : Entity{name, health}{
 }

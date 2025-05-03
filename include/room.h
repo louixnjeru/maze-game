@@ -29,4 +29,6 @@ class Room {
         void addNeighbour(Room* new_neighbour);
 
         void removeNeighbour(Room* neighbour);
+
+        int getNeighbourNum() { return this->neighbours.size(); };
 };
