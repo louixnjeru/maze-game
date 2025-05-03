@@ -16,6 +16,7 @@ Room::Room(int x, int y, int width, int height) {
 }
 
 bool Room::checkCollision(Room *other) {
+    //std::cout << "Comparing (" << this->x << ", " << this->y << ") and (" << other->x << ", " << other->y << ")\n";
     return  this->x > other->x + other->width &&
             this->x + this->width < other->x &&
             this->y > other->y + other->height &&
@@ -35,8 +36,10 @@ double Room::getDistanceToRoom(Room *other) {
 
 void Room::addNeighbour(Room* new_neighbour) {
     this->neighbours.insert(new_neighbour);
+    new_neighbour->neighbours.insert(this);
 }
 
 void Room::removeNeighbour(Room* neighbour) {
     this->neighbours.erase(neighbour);
+    neighbour->neighbours.erase(this);
 }

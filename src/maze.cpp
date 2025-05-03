@@ -12,11 +12,10 @@
 class Room;
 
 void Maze::generateErdosRenyi(int n, double p) {
-    std::cout << this->rooms.size() << '\n';
     for (int i { 0 }; i < n; ++i ) {
         for (int j { i+1 }; j < n; ++j ) {
             if (getProbability() < p) {
-                std::cout << i << '\t' << j << '\n';
+                //std::cout << i << '\t' << j << '\n';
                 rooms.at(i)->addNeighbour(rooms.at(j));
                 rooms.at(j)->addNeighbour(rooms.at(i));
             }
@@ -41,22 +40,46 @@ int Maze::getRandInt(int end) {
 }
 
 int Maze::getRandInt(int start, int end) {
-    return (rand() % (end - start)) - start + 1;
+    return (rand() % (end - start)) + start + 1;
 }
 
-void Maze::bfs(std::set<int> &visited, std::set<int> &maxComponent, int node) {
+void Maze::bfs(std::set<Room*> &visited, Room* source) {
+
+    std::queue<Room*> q;
+    q.emplace(source);
+    std::set<Room*> currentComponent {source};
+    Room* curr;
     
+    while (!q.empty()){
+        curr = q.front();
+        q.pop();
+        visited.insert(curr);
+
+        for (auto nei : curr->getNeighbours()) {
+            if (visited.count(nei) == 0) {
+                visited.insert(nei);
+                q.emplace(nei);
+                currentComponent.insert(nei);
+            }
+        }
+    }
+
+    //std::cout << "C Size:" << currentComponent.size() << '\n';
+    if (currentComponent.size() > this->maxComponent.size()) {
+        this->maxComponent = currentComponent;
+    }
+
 }
 
 Maze::Maze(int n, double p, std::string mode, int map_size, int max_room_size) {
     bool isCollison;
-    while (rooms.size() < n) {
+    while (this->rooms.size() < n) {
         isCollison = false;
 
         Room *newRoom = new Room(getRandInt(-map_size, map_size), getRandInt(-map_size, map_size), getRandInt(max_room_size), getRandInt(max_room_size));
-        
-        for (auto &r : rooms) {
+        for (auto &r : this->rooms) {
             if (r->checkCollision(newRoom)) {
+                //std::cout << "**" << newRoom->getX() << ", " << newRoom->getY() << "**\n";
                 isCollison = true;
                 break;
             }
@@ -65,11 +88,12 @@ Maze::Maze(int n, double p, std::string mode, int map_size, int max_room_size) {
         if (isCollison) {
             delete newRoom;
         } else {
-            rooms.push_back(newRoom);
+            this->rooms.push_back(newRoom);
         }
     }
 
-    generateErdosRenyi(n, p);
+    this->generateErdosRenyi(n, p);
+    this->getMaxConnectedComponent();
 }
 
 void Maze::addEdge(int i, int j) {
@@ -78,10 +102,20 @@ void Maze::addEdge(int i, int j) {
 
 void Maze::printGraph() {
     for (auto r: this->rooms) {
-        std::cout << r << '\t' << r->getNeighbourNum() << '\n';
+        std::cout << "(" << r->getX() << ", " << r->getY() << ")  ->  ";
+        for (auto nei: r->getNeighbours()) {
+            std::cout << "(" << nei->getX() << ", " << nei->getY() << ") " << /*nei->getDistanceToRoom(r) <<*/ ", ";
+        }
+        std::cout << '\n';
     }
 }
 
 void Maze::getMaxConnectedComponent() {
-    
+    std::set<Room*> visited;
+
+    for (auto room: this->rooms) {
+        if (visited.count(room) == 0) {
+            this->bfs(visited, room);
+        }
+    }
 }

@@ -20,6 +20,9 @@ class Room {
     public:
         Room(int x, int y, int width, int height);
 
+        int getX() { return this->x; };
+        int getY() { return this->y; };
+
         bool checkCollision(Room *other);
 
         void addEnemy(Enemy *new_enemy);
@@ -27,8 +30,8 @@ class Room {
         double getDistanceToRoom(Room *other);
 
         void addNeighbour(Room* new_neighbour);
-
         void removeNeighbour(Room* neighbour);
+        int getNeighbourCount() { return this->neighbours.size(); };
 
-        int getNeighbourNum() { return this->neighbours.size(); };
+        const std::set<Room*> getNeighbours() { return this->neighbours; };
 };

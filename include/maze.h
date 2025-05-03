@@ -13,6 +13,8 @@ class Maze {
     private:
         std::unordered_map<int,std::set<int>> adj;
 
+        std::set<Room*> maxComponent;
+
         std::vector<Room*> rooms;
 
         void generateErdosRenyi(int n, double p);
@@ -27,7 +29,9 @@ class Maze {
 
         int getRandInt(int start, int end);
 
-        void bfs(std::set<int> &visited, std::set<int> &maxComponent, int node);
+        void bfs(std::set<Room*> &visited, Room* source);
+
+        void getMaxConnectedComponent();
 
     public:
         
@@ -37,5 +41,5 @@ class Maze {
 
         void printGraph();
 
-        void getMaxConnectedComponent();
+        void getMaxConnectedComponentSize() { std::cout << "Max Connected Component Size: " << this->maxComponent.size() << "\n"; };
 };
