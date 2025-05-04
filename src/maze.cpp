@@ -71,7 +71,7 @@ void Maze::bfs(std::set<Room*> &visited, Room* source) {
 
 }
 
-Maze::Maze(int n, double p, std::string mode, int map_size, int max_room_size) {
+void Maze::createRooms(int n, int map_size, int max_room_size) {
     bool isCollison;
     while (this->rooms.size() < n) {
         isCollison = false;
@@ -91,9 +91,20 @@ Maze::Maze(int n, double p, std::string mode, int map_size, int max_room_size) {
             this->rooms.push_back(newRoom);
         }
     }
+};
 
+Maze::Maze(int n, double p, std::string mode, int map_size, int max_room_size) {
+    this->createRooms(n, map_size, max_room_size);
     this->generateErdosRenyi(n, p);
     this->getMaxConnectedComponent();
+}
+
+Maze::~Maze() {
+    for (auto r : this->rooms) {
+        delete r;
+    }
+    this->rooms.clear();
+    //std::cout << "Maze destructed" << std::endl;
 }
 
 void Maze::addEdge(int i, int j) {

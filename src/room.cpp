@@ -15,6 +15,13 @@ Room::Room(int x, int y, int width, int height) {
     this->height = height;
 }
 
+Room::~Room() {
+    for (auto e : this->enemies) {
+        delete e;
+    }
+    this->enemies.clear();
+}
+
 bool Room::checkCollision(Room *other) {
     //std::cout << "Comparing (" << this->x << ", " << this->y << ") and (" << other->x << ", " << other->y << ")\n";
     return  this->x > other->x + other->width &&

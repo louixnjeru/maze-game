@@ -33,9 +33,12 @@ class Maze {
 
         void getMaxConnectedComponent();
 
+        void createRooms(int n, int map_size, int max_room_size);
+
     public:
         
         Maze(int n, double p, std::string mode, int map_size, int max_room_size);
+        ~Maze();
 
         void addEdge(int i, int j);
 

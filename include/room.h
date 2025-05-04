@@ -19,6 +19,7 @@ class Room {
 
     public:
         Room(int x, int y, int width, int height);
+        ~Room();
 
         int getX() { return this->x; };
         int getY() { return this->y; };
