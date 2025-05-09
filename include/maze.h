@@ -11,11 +11,15 @@ class Room;
 
 class Maze {
     private:
-        std::unordered_map<int,std::set<int>> adj;
+        std::vector<std::vector<int>> adj;
+
+        std::vector<double> eigenvectorCentrality;
 
         std::set<Room*> maxComponent;
 
         std::vector<Room*> rooms;
+
+        int n, prob, maxRoomSize;
 
         void generateErdosRenyi(int n, double p);
 
@@ -33,7 +37,11 @@ class Maze {
 
         void getMaxConnectedComponent();
 
+        std::vector<double> getEigenVectorCentraility(int n);
+
         void createRooms(int n, int map_size, int max_room_size);
+
+        void placeEnemies(int n, double p);
 
     public:
         

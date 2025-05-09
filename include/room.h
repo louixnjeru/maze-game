@@ -27,6 +27,7 @@ class Room {
         bool checkCollision(Room *other);
 
         void addEnemy(Enemy *new_enemy);
+        int getEnemyCount() { return this->enemies.size(); }
 
         double getDistanceToRoom(Room *other);
 

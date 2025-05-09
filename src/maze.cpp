@@ -5,9 +5,11 @@
 #include <queue>
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
 
 #include "maze.h"
 #include "room.h"
+#include "enemy.h"
 
 class Room;
 
@@ -18,18 +20,42 @@ void Maze::generateErdosRenyi(int n, double p) {
                 //std::cout << i << '\t' << j << '\n';
                 rooms.at(i)->addNeighbour(rooms.at(j));
                 rooms.at(j)->addNeighbour(rooms.at(i));
+                this->adj.at(i).at(j) = 1;
+                this->adj.at(j).at(i) = 1;
             }
         }
     }
 }
 
-void Maze::generateVertexDuplication(int n, double p) {
-    
+std::vector<double> Maze::getEigenVectorCentraility(int n) {
+    std::vector<double> degreeCentrality(n, 1);
+    std::vector<double> normalisedCentrality(n, 0);
+
+    for (int i {0}; i < 2; ++i) {
+        double normaliser{0};
+
+        for (int i{0}; i < n; ++i) {
+            for (int j{0}; j < n; ++j) {
+                normalisedCentrality.at(i) += this->adj.at(i).at(j) * degreeCentrality.at(i);
+            }
+            normaliser += std::pow(normalisedCentrality.at(i), 2);
+        }
+
+        normaliser = std::sqrt(normaliser/n);
+
+        for (int i{0}; i < n; ++i) {
+            normalisedCentrality.at(i) /= normaliser;
+        }
+
+        degreeCentrality = normalisedCentrality;
+    }
+
+    return normalisedCentrality;
+
 }
 
-void Maze::removeNode(int node) {
-    
-}
+void Maze::generateVertexDuplication(int n, double p) {}
+void Maze::removeNode(int node) {}
 
 double Maze::getProbability() {
     return (double)(rand() % 1000) / 1000;
@@ -93,10 +119,48 @@ void Maze::createRooms(int n, int map_size, int max_room_size) {
     }
 };
 
+void Maze::placeEnemies(int n, double p) {
+    for (int i {0}; i < n; ++i) {
+        while (this->eigenvectorCentrality.at(i) > 1) {
+            if (getProbability() < (1-p)/2) {
+                Enemy* newEnemy = new Enemy("Enemy", 100);
+                this->rooms.at(i)->addEnemy(newEnemy);
+            }
+            this->eigenvectorCentrality.at(i) -= 1;
+        }
+        double pr {getProbability()};
+        std::cout << pr << "-" << this->eigenvectorCentrality.at(i) << " ";
+        if (pr < this->eigenvectorCentrality.at(i)) {
+            Enemy* newEnemy = new Enemy("Enemy", 100);
+            this->rooms.at(i)->addEnemy(newEnemy);
+        }
+        
+
+    }
+    std::cout << "\n";
+}
+
+
+
 Maze::Maze(int n, double p, std::string mode, int map_size, int max_room_size) {
+    this->adj = std::vector<std::vector<int>>(n, std::vector<int>(n, 0));
     this->createRooms(n, map_size, max_room_size);
     this->generateErdosRenyi(n, p);
     this->getMaxConnectedComponent();
+    this->eigenvectorCentrality = this->getEigenVectorCentraility(n);
+    this->placeEnemies(n, p);
+
+    /*
+    for (auto v : this->eigenvectorCentrality ) {
+        std::cout << v << " ";
+    }
+    */
+    std::cout << std::endl;
+    for (auto r : this->rooms ) {
+        std::cout << r->getNeighbourCount() << "-" << r->getEnemyCount() << " ";
+    }
+    std::cout << std::endl;
+    
 }
 
 Maze::~Maze() {
@@ -107,9 +171,7 @@ Maze::~Maze() {
     //std::cout << "Maze destructed" << std::endl;
 }
 
-void Maze::addEdge(int i, int j) {
-    
-}
+void Maze::addEdge(int i, int j) {}
 
 void Maze::printGraph() {
     for (auto r: this->rooms) {
